@@ -1,12 +1,12 @@
 const holes = [
-  { hole: 1, pub: "Bamburgh", rule: "No first names", drink: "Beer", par: 4, shotOption: false },
-  { hole: 2, pub: "New Crown", rule: "Dice rule", drink: "Spirit Mixer", par: 3, shotOption: false },
-  { hole: 3, pub: "Sanddancer", rule: "Forbidden word", drink: "Wine", par: 3, shotOption: true },
-  { hole: 4, pub: "Rattler", rule: "Left hand", drink: "Spirit Mixer", par: 3, shotOption: false },
-  { hole: 5, pub: "Sundial", rule: "No swearing", drink: "Cocktail", par: 3, shotOption: false },
-  { hole: 6, pub: "Marine", rule: "Number ban", drink: "Spirit Mixer", par: 3, shotOption: false },
-  { hole: 7, pub: "Hogarths", rule: "No laughing", drink: "Spirit Mixer", par: 3, shotOption: false },
-  { hole: 8, pub: "Spoons", rule: "No eye contact", drink: "Pitcher", par: 10, shotOption: true }
+  { hole: 1, pub: "Bamburgh", rule: "No first names", drink: "Beer", par: 4, shotOption: false, image: "images/pubs/bamburgh.webp" },
+  { hole: 2, pub: "New Crown", rule: "Dice rule", drink: "Spirit Mixer", par: 3, shotOption: false, image: "images/pubs/new-crown.jpg" },
+  { hole: 3, pub: "Sanddancer", rule: "Forbidden word", drink: "Wine", par: 3, shotOption: true, image: "images/pubs/sanddancer.jpg" },
+  { hole: 4, pub: "Rattler", rule: "Left hand", drink: "Spirit Mixer", par: 3, shotOption: false, image: "images/pubs/rattler.jpg" },
+  { hole: 5, pub: "Sundial", rule: "No swearing", drink: "Cocktail", par: 3, shotOption: false, image: "images/pubs/sundial.jpg" },
+  { hole: 6, pub: "Marine", rule: "Number ban", drink: "Spirit Mixer", par: 3, shotOption: false, image: "images/pubs/marine.jpg" },
+  { hole: 7, pub: "Hogarths", rule: "No laughing", drink: "Spirit Mixer", par: 3, shotOption: false, image: "images/pubs/hogarths.jpg" },
+  { hole: 8, pub: "Spoons", rule: "No eye contact", drink: "Pitcher", par: 10, shotOption: true, image: "images/pubs/spoons.jpg" }
 ];
 
 const penalties = [
@@ -193,6 +193,10 @@ function renderHoles() {
     `).join("");
 
     card.innerHTML = `
+      <div class="hole-media">
+        <img class="hole-photo" src="${hole.image}" alt="${hole.pub} in South Shields" loading="lazy" />
+      </div>
+
       <div class="hole-header">
         <div>
           <div class="hole-meta">Hole ${hole.hole}</div>

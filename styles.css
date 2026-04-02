@@ -159,6 +159,19 @@ input[type="text"], input[type="number"] {
   padding: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,.06);
 }
+.hole-media {
+  margin: -16px -16px 14px;
+  overflow: hidden;
+  border-radius: 22px 22px 18px 18px;
+  background: #d1d5db;
+  aspect-ratio: 16 / 9;
+}
+.hole-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .hole-header {
   display: flex;
   justify-content: space-between;

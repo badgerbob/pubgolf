@@ -38,3 +38,4 @@ Then open:
 - Scores save in browser local storage.
 - Works well as a simple PWA.
 - Offline support is included after first load.
+- Pub images are bundled locally from the venues' public website/listing photos.
