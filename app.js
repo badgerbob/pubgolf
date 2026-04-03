@@ -19,6 +19,8 @@ const penalties = [
 
 const STORAGE_KEY = "pub-golf-pwa-state-v1";
 const coursePar = holes.reduce((sum, h) => sum + h.par, 0);
+const STROKE_OPTIONS = Array.from({ length: 26 }, (_, index) => index - 5);
+const PENALTY_COUNT_OPTIONS = Array.from({ length: 11 }, (_, index) => index);
 
 function createPlayerCardDefaults() {
   return holes.map(h => ({
@@ -77,6 +79,12 @@ function leaderboardData() {
 
 function el(id) {
   return document.getElementById(id);
+}
+
+function renderSelectOptions(options, selectedValue) {
+  return options.map(value => (
+    `<option value="${value}"${value === selectedValue ? " selected" : ""}>${value}</option>`
+  )).join("");
 }
 
 function renderTabs() {
@@ -173,6 +181,15 @@ function renderHoles() {
   wrap.innerHTML = "";
   const selected = state.selectedPlayer;
   const entries = state.scores[selected] || [];
+
+  const activeBanner = document.createElement("div");
+  activeBanner.className = "active-player-banner";
+  activeBanner.innerHTML = `
+    <span class="active-player-label">Scoring now</span>
+    <strong>${selected}</strong>
+  `;
+  wrap.appendChild(activeBanner);
+
   holes.forEach((hole, index) => {
     const entry = entries[index];
     const penTotal = holePenaltyTotal(entry);
@@ -181,6 +198,7 @@ function renderHoles() {
 
     const card = document.createElement("div");
     card.className = "hole-card";
+    const strokeOptions = renderSelectOptions(STROKE_OPTIONS, entry.strokes);
 
     const penaltyHtml = penalties.map(p => `
       <div class="penalty-row">
@@ -188,7 +206,9 @@ function renderHoles() {
           <strong>${p.label}</strong>
           <div class="muted">+${p.points} each</div>
         </div>
-        <input type="number" min="0" value="${entry.penalties[p.key] || 0}" data-hole="${index}" data-penalty="${p.key}" class="penalty-input" />
+        <select data-hole="${index}" data-penalty="${p.key}" class="penalty-input">
+          ${renderSelectOptions(PENALTY_COUNT_OPTIONS, entry.penalties[p.key] || 0)}
+        </select>
       </div>
     `).join("");
 
@@ -212,7 +232,9 @@ function renderHoles() {
       <div class="hole-grid">
         <div class="mini">
           <span class="muted">Strokes</span>
-          <input type="number" min="-5" value="${entry.strokes}" data-hole="${index}" class="stroke-input" style="margin-top:8px" />
+          <select data-hole="${index}" class="stroke-input" style="margin-top:8px">
+            ${strokeOptions}
+          </select>
         </div>
         <div class="mini">
           <span class="muted">Penalties</span>
@@ -233,7 +255,7 @@ function renderHoles() {
   });
 
   document.querySelectorAll(".stroke-input").forEach(input => {
-    input.oninput = (e) => {
+    input.onchange = (e) => {
       const holeIndex = Number(e.target.dataset.hole);
       state.scores[state.selectedPlayer][holeIndex].strokes = Number(e.target.value || 0);
       saveState();
@@ -242,7 +264,7 @@ function renderHoles() {
   });
 
   document.querySelectorAll(".penalty-input").forEach(input => {
-    input.oninput = (e) => {
+    input.onchange = (e) => {
       const holeIndex = Number(e.target.dataset.hole);
       const penaltyKey = e.target.dataset.penalty;
       state.scores[state.selectedPlayer][holeIndex].penalties[penaltyKey] = Number(e.target.value || 0);
