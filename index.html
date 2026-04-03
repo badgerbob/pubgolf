@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#111111" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Pub Golf" />
+  <title>Pub Golf</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Pub Golf</p>
+        <h1>Score Card</h1>
+      </div>
+      <button id="installBtn" class="ghost hidden">Install</button>
+    </header>
+
+    <section class="summary-grid">
+      <div class="card stat">
+        <span>Course Par</span>
+        <strong id="coursePar">32</strong>
+      </div>
+      <div class="card stat">
+        <span>Leader</span>
+        <strong id="leaderName">—</strong>
+        <small id="leaderScore">0 strokes</small>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="scores">Scores</button>
+      <button class="tab" data-tab="leaderboard">Leaderboard</button>
+      <button class="tab" data-tab="rules">Rules</button>
+    </nav>
+
+    <main>
+      <section id="scores" class="tab-panel active">
+        <div class="card">
+          <div class="section-title">
+            <h2>Players</h2>
+            <button id="resetBtn" class="ghost">Reset</button>
+          </div>
+
+          <div class="player-add">
+            <input id="newPlayer" type="text" placeholder="Add player" />
+            <button id="addPlayerBtn">Add</button>
+          </div>
+
+          <div id="playerChips" class="player-chips"></div>
+        </div>
+
+        <div id="holesContainer" class="holes"></div>
+      </section>
+
+      <section id="leaderboard" class="tab-panel">
+        <div class="card">
+          <div class="section-title">
+            <h2>Live Standings</h2>
+          </div>
+          <div id="leaderboardList" class="leaderboard-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h2>Forfeit</h2>
+          </div>
+          <p>Loser: <strong id="loserName">—</strong></p>
+          <p class="muted">Must post on Instagram story on knees saying <strong>“we've lost”</strong>.</p>
+        </div>
+      </section>
+
+      <section id="rules" class="tab-panel">
+        <div class="card">
+          <div class="section-title">
+            <h2>Penalty Rules</h2>
+          </div>
+          <div id="rulesList" class="rules-list"></div>
+          <div class="rule-note">
+            <strong>Spill drink note:</strong>
+            Whoever spills must buy that person a new drink if it was more than half full, and their score is reset.
+          </div>
+          <div class="rule-note">
+            <strong>Shot exception:</strong>
+            A shot can be taken instead of a -1 only at Sanddancer or Spoons.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
